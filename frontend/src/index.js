@@ -7,14 +7,23 @@ import * as serviceWorker from './serviceWorker';
 import io from 'socket.io-client';
 import Crypt from 'g-crypt';
 
+// Define encryption passphrase.
 var passphrase = 'Qpud>CdkUbtu^yQ;!a>Ja`Zv?szt<22v';
 
+// Define socket connection.
 window.socket = io('https://zach.black:3001', {secure: true});
+
+// Define crypter.
 window.crypter = Crypt(passphrase);
 
-window.socket.on('test', function (msg) {
-    var decryptedMessage = window.crypter.decrypt(msg);
-    console.log('Message: ' + decryptedMessage);
+// Wait for connection to server.
+window.socket.on('connect', () => {
+    console.log('Connected to server.');
+
+    window.socket.emit('request_authenticate', 
+    {username: 'username', password:'password'}, () => {
+        console.log('Authenticated!');
+    })
 });
 
 ReactDOM.render(<App />, document.getElementById('root'));

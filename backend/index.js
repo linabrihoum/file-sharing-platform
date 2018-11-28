@@ -1,6 +1,6 @@
 require('g-crypt');
 var app = require('express')();
-var fs = require( 'fs' );
+var fs = require('fs');
 
 var certbotDir = '/etc/letsencrypt/live/zach.black';
 var server = require('https').createServer({
@@ -20,21 +20,42 @@ app.get('/', function (req, res) {
 io.on('connection', function (socket) {
     console.log('Client connected.');
 
+    // Set default state of authentication.
+    socket.authenticated = false;
+
     // Emit test message.
     socket.emit('test', crypter.encrypt('hello'));
 
-    socket.on('request_projectList', function(callback) {
-        console.log('Project list request received.');
+    // Define authentication method.
+    socket.on('request_authenticate', (loginData, callback) => {
+        console.log('Authentication request received.');
+        
+        /*
+            Authenticate user here --
+        */
 
-        // Respond to client's request.
-        callback(crypter.encrypt([
-            {projectID: 'p223', name: 'Project_1', access: false}, 
-            {projectID: 'p224', name: 'Project_2', access: false}, 
-            {projectID: 'p226', name: 'Project_3', access: true}
-        ]));
+        // Temporary auth.
+        if (loginData.username == 'username' && loginData.password == 'password') {
+            // Set authentication status.
+            socket.authenticated = true;
+            callback();
+        }
     });
 
-    socket.on('disconnect', function() {
+    socket.on('request_projectList', (callback) => {
+        console.log('Project list request received.');
+
+        if (socket.authenticated) {
+            // Respond to client's request.
+            callback(crypter.encrypt([
+                { projectID: 'p223', name: 'Project_1', access: false },
+                { projectID: 'p224', name: 'Project_2', access: false },
+                { projectID: 'p226', name: 'Project_3', access: true }
+            ]));
+        }
+    });
+
+    socket.on('disconnect', function () {
         console.log('Client disconnected.');
     });
 });
