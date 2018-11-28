@@ -4,6 +4,13 @@ import './index.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+import io from 'socket.io-client';
+
+const socket = io('http://zach.black:3001');
+
+socket.on('test', function (msg) {
+    console.log('Message: ' + msg);
+});
 
 ReactDOM.render(<App />, document.getElementById('root'));
 
