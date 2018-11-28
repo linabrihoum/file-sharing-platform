@@ -11,7 +11,7 @@ export default class ProjectDropdownItem extends Component {
 
     setProject() {
         if (!this.disabled) {
-            this.props.setProject(this.props.children);
+            this.props.setProject(this.props.projectKey);
         }
     }
 
