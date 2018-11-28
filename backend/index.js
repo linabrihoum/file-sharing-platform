@@ -38,7 +38,10 @@ io.on('connection', function (socket) {
         if (loginData.username == 'username' && loginData.password == 'password') {
             // Set authentication status.
             socket.authenticated = true;
-            callback();
+            callback(true);
+        }
+        else {
+            callback(false);
         }
     });
 

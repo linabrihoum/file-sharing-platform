@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import io from 'socket.io-client';
@@ -19,11 +19,6 @@ window.crypter = Crypt(passphrase);
 // Wait for connection to server.
 window.socket.on('connect', () => {
     console.log('Connected to server.');
-
-    window.socket.emit('request_authenticate', 
-    {username: 'username', password:'password'}, () => {
-        console.log('Authenticated!');
-    })
 });
 
 ReactDOM.render(<App />, document.getElementById('root'));

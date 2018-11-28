@@ -15,6 +15,7 @@ export default class ProjectDropdown extends Component {
 
     // Bind methods.
     this.setCurrentProject = this.setCurrentProject.bind(this);
+    this.toggle = this.toggle.bind(this);
   }
 
   componentDidMount() {
