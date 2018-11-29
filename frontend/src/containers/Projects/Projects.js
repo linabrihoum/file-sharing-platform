@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
 import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
+import axios from 'axios';
 
 import classes from './Projects.css'
 
 class Projects extends Component{
     
     state = {
-        dropdownOpen: false
+        project: "Select Project",
+        dropdownOpen: false,
+        projects : null
     }
     
     toggle(){
@@ -16,16 +19,30 @@ class Projects extends Component{
     }
     
     render(){
+        
+        let dropDowns = <DropdownItem>Projects Loading...</DropdownItem>;
+        if(this.props.projects){
+             dropDowns = this.props.projects.map((project)=>
+                <DropdownItem
+                    onClick ={()=>{
+                        this.setState({project: project});
+                        this.props.setProject(project);
+                        }
+                    }
+                >{project}
+                </DropdownItem>
+            );
+        }
+        
+        
         return(
             <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle.bind(this)}>
-                <DropdownToggle className={classes.dropDown} caret>
-                    Current Project
+                <DropdownToggle 
+                    className={classes.dropDown} caret>
+                    {this.state.project}
                 </DropdownToggle>
                 <DropdownMenu>
-                    <DropdownItem>Project 1</DropdownItem>
-                    <DropdownItem>Project 2</DropdownItem>
-                    <DropdownItem>Project 3</DropdownItem>
-                    <DropdownItem>Project 4</DropdownItem>
+                   {dropDowns}
                 </DropdownMenu>
             </Dropdown>
             
