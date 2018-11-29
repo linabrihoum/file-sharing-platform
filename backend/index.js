@@ -1,6 +1,7 @@
 require('g-crypt');
 var app = require('express')();
 var fs = require('fs');
+var md5 = require('md5');
 
 var certbotDir = '/etc/letsencrypt/live/zach.black';
 var server = require('https').createServer({
@@ -35,7 +36,7 @@ io.on('connection', function (socket) {
         */
 
         // Temporary auth.
-        if (loginData.username == 'username' && loginData.password == 'password') {
+        if (loginData.email == 'test@whiting-turner.com' && loginData.passwordHash == md5('password')) {
             // Set authentication status.
             socket.authenticated = true;
             callback(true);
