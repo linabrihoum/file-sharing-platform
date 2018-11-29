@@ -19,13 +19,18 @@ export default class LoginForm extends Component {
     constructor(props) {
         super(props);
 
+        this.state = {
+            email: '',
+            password: ''
+        }
+
         this.performLogin = this.performLogin.bind(this);
         this.app = props.app;
     }
 
     performLogin(event) {
         window.socket.emit('request_authenticate',
-        { username: 'username', password: 'password' },
+        { username: this.state.email, password: this.state.password },
         (authStatus) => {
           if (authStatus) {
             console.log('Authenticated!');
@@ -50,11 +55,25 @@ export default class LoginForm extends Component {
                                 <Form onSubmit={this.performLogin}>
                                     <FormGroup>
                                         <Label for="loginEmail">Email</Label>
-                                        <Input type="email" name="email" id="loginEmail" placeholder="user@whiting-turner.com" />
+                                        <Input 
+                                            type="" 
+                                            name="email" 
+                                            id="loginEmail" 
+                                            placeholder="user@whiting-turner.com"
+                                            value={this.state.email}
+                                            onChange={e => this.setState({ email: e.target.value })}
+                                        />
                                     </FormGroup>
                                     <FormGroup>
                                         <Label for="loginPassword">Password</Label>
-                                        <Input type="password" name="password" id="loginPassword" placeholder="Password"/>
+                                        <Input 
+                                            type="password" 
+                                            name="password" 
+                                            id="loginPassword" 
+                                            placeholder="Password"
+                                            value={this.state.password}
+                                            onChange={e => this.setState({ password: e.target.value })}
+                                        />
                                     </FormGroup>
                                     <Button color="success" size="lg" block>Login</Button>
                                 </Form>
