@@ -42,13 +42,7 @@ class Projects extends Component{
                     {this.state.project}
                 </DropdownToggle>
                 <DropdownMenu>
-                   {/* {dropDowns} */}
-                   {/* {Dummy drop downs} */}
-                   <DropdownItem>Hello</DropdownItem>
-                   <DropdownItem>Hello</DropdownItem>
-                   <DropdownItem>Hello</DropdownItem>
-                   <DropdownItem>Hello</DropdownItem>
-                   <DropdownItem>Hello</DropdownItem>
+                   {dropDowns}
                 </DropdownMenu>
             </Dropdown>
             
