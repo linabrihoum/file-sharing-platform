@@ -67,13 +67,7 @@ class App extends Component {
       margin:0,
       border: "2px solid #e4ecf5"
     }
-    
-    const ulStyle = {
-      listStyleType : "none",
-      paddingLeft : "15px",
-      color : "#444"
-    }
-    
+ 
     const folderIcon = {
       margin : "0 2px 0 0"
     }
@@ -84,19 +78,19 @@ class App extends Component {
     
     return (
       <div className={classes.App}>
-        <Navbar style={{"backgroundColor": "rgba(55,79,101, 1.0)", "boxShadow": "0 0 3px #111"}}>
+        <Navbar className={classes.navbar}>
           <Projects projects={this.state.projects} setProject = {this.setCurrentProject.bind(this)}/>
-          <span style={{"fontSize": "1.5em", "color":"gray"}}>
+          <span className={classes.icon}>
             <i className="far fa-question-circle" style={{"paddingRight":"5px"}}></i>
             <i className="far fa-user-circle"></i>
           </span>
         </Navbar>
         <Row style={style}>
-            <Col xs = "2" style={{"backgroundColor" : "#e4ecf5","whiteSpace":"nowrap", "overflow":"auto", "paddingTop":"10px"}}>
-              <ul style={ulStyle}>
+            <Col xs = "2" className={classes.sideNav}>
+              <ul>
                 <li>
                   <i class="fas fa-folder-open" style={folderIcon}></i>Project folder
-                  <ul style={ulStyle}>
+                  <ul>
                     <li><i class="fas fa-folder" style={folderIcon}></i>Folder 1</li>
                     <li><i class="fas fa-folder" style={folderIcon}></i>Folder 1</li>
                     <li><i class="fas fa-folder" style={folderIcon}></i>Folder 1</li>
@@ -108,16 +102,16 @@ class App extends Component {
                 </li>
               </ul>
             </Col>
-            <Col xs="10" style ={{"backgroundColor" : "rgba(0, 255, 0, 0.5)"}}>
+            <Col xs="10">
               <Row>
-                <Col style = {{"backgroundColor" : "#e4ecf5", "padding":"10px 0"}}>
-                  <Button color="secondary" style={{"width":"150px"}}>Upload</Button>
-                  <Button color="danger" style={{"float":"right","order":"10","marginLeft":"10px"}}>Delete</Button>
-                  <Input placeholder="Search" style={{"width":"300px", "display":"inline-block", "float":"right"}}/>
+                <Col className={classes.innerNav}>
+                  <Button color="secondary" className={classes.uploadButton}>Upload</Button>
+                  <Button color="danger" className={classes.deleteButton}>Delete</Button>
+                  <Input placeholder="Search" className={classes.searchBar}/>
                 </Col>
               </Row>
               <Row>
-                <Col style = {{"backgroundColor": "white", "height" : style.height - 78, "boxShadow":"0 0 1px #aaa", "overflow": "auto", "text-align":"center"}}>
+                <Col className ={classes.fileCardContainer} style = {{"height" : style.height - 78}}>
                   {files}
                   {files}
                   {files}
