@@ -1,3 +1,9 @@
+html,
+body,
+#root {
+  height: 100%;
+}
+
 body {
   margin: 0;
   padding: 0;
@@ -16,4 +22,47 @@ code {
 .img-logo {
   padding-bottom: 5vh;
   padding-top: 5vh;
+}
+
+.file-tree-container {
+  height: 100%;
+  width: 25%;
+  float: left;
+  background-color: red;
+}
+
+.file-browser-container {
+  height: 100%;
+  width: 75%;
+  float: left;
+  background-color: blue;
+}
+
+.navbar {
+  height: 15%;
+}
+
+.dashboard-container {
+  overflow: hidden;
+  height: 85%;
+}
+
+@media (min-height: 600px) {
+  .navbar {
+    height: 10%;
+  }
+  
+  .dashboard-container {
+    height: 90%;
+  }
+}
+
+@media (min-height: 1200px) {
+  .navbar {
+    height: 5%;
+  }
+  
+  .dashboard-container {
+    height: 95%;
+  }
 }

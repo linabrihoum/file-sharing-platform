@@ -1,3 +1,7 @@
+// Server configuration.
+const port = 3001;
+
+// External libraries.
 require('g-crypt');
 var app = require('express')();
 var fs = require('fs');
@@ -13,9 +17,11 @@ var io = require('socket.io')(server);
 var passphrase = 'Qpud>CdkUbtu^yQ;!a>Ja`Zv?szt<22v',
     crypter = Crypt(passphrase);
 
-app.get('/', function (req, res) {
-    res.send('<strong>Not for access...</strong>');
-});
+console.log('\n');
+console.log('FSP Server');
+console.log('Version: ' + process.env.npm_package_version);
+console.log('Starting server on port ' + port + '...');
+console.log('\n');
 
 // Define how our connection functions.
 io.on('connection', function (socket) {
@@ -30,7 +36,7 @@ io.on('connection', function (socket) {
     // Define authentication method.
     socket.on('request_authenticate', (loginData, callback) => {
         console.log('Authentication request received.');
-        
+
         /*
             Authenticate user here --
         */
@@ -39,6 +45,7 @@ io.on('connection', function (socket) {
         if (loginData.email == 'test@whiting-turner.com' && loginData.passwordHash == md5('password')) {
             // Set authentication status.
             socket.authenticated = true;
+
             callback(true);
         }
         else {
@@ -64,5 +71,9 @@ io.on('connection', function (socket) {
     });
 });
 
+app.get('/', function (req, res) {
+    res.send('<strong>Not for access...</strong>');
+});
+
 // Start listening on the server.
-server.listen(3001);
+server.listen(port);
