@@ -59,7 +59,7 @@ class App extends Component {
   
   render() {
     
-    const style = {
+    const mainContainerStyle = {
       height: this.state.windowHeight - 54,
       padding: "8px",
       width: this.state.windowWidth,
@@ -85,7 +85,7 @@ class App extends Component {
             <i className="far fa-user-circle"></i>
           </span>
         </Navbar>
-        <Row style={style}>
+        <Row style={mainContainerStyle}>
             <Col xs = "2" className={classes.sideNav}>
               <ul>
                 <li>
@@ -111,7 +111,7 @@ class App extends Component {
                 </Col>
               </Row>
               <Row>
-                <Col className ={classes.fileCardContainer} style = {{"height" : style.height - 78}}>
+                <Col className ={classes.fileCardContainer} style = {{"height" : mainContainerStyle.height - 78}}>
                   {files}
                   {files}
                   {files}
