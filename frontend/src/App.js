@@ -5,7 +5,8 @@ import axios from 'axios';
 
 import AuthForm from './containers/AuthForm/AuthForm';
 import Projects from './containers/Projects/Projects';
-import FileCard from './components/FileCard/FileCard'
+import FileCard from './components/FileCard/FileCard';
+import Modal from './components/Modal/Modal';
 
 //Diego Branch
 
@@ -16,7 +17,8 @@ class App extends Component {
     currentProject:null,
     currentFiles: [],
     windowWidth: window.innerWidth,
-    windowHeight: window.innerHeight
+    windowHeight: window.innerHeight,
+    uploading : false
   }
 
   resize(){
@@ -56,6 +58,14 @@ class App extends Component {
                 console.log("error");
             });
     }
+    
+    startUploadHandler = () => {
+      this.setState({uploading: true})
+    }
+    
+    cancelUploadHandler = () => {
+      this.setState({uploading : false});
+    }
   
   render() {
     
@@ -78,6 +88,7 @@ class App extends Component {
     
     return (
       <div className={classes.App}>
+      <Modal show={this.state.uploading} modalClosed={this.cancelUploadHandler}/>
         <Navbar className={classes.navbar}>
           <Projects projects={this.state.projects} setProject = {this.setCurrentProject.bind(this)}/>
           <span className={classes.icon}>
@@ -105,7 +116,10 @@ class App extends Component {
             <Col xs="10">
               <Row>
                 <Col className={classes.innerNav}>
-                  <Button color="secondary" className={classes.uploadButton}>Upload</Button>
+                  <Button 
+                    color="secondary" 
+                    className={classes.uploadButton}
+                    onClick={this.startUploadHandler}>Upload</Button>
                   <Button color="danger" className={classes.deleteButton}>Delete</Button>
                   <Input placeholder="Search" className={classes.searchBar}/>
                 </Col>
