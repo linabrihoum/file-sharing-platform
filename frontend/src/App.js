@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
-import classes from'./App.css';
 import { Navbar, Row, Col, Button, Input} from 'reactstrap';
 import axios from 'axios';
 
+import classes from'./App.css';
 import AuthForm from './containers/AuthForm/AuthForm';
 import Projects from './containers/Projects/Projects';
-import FileCard from './components/FileCard/FileCard';
+import FileDisplay from './components/FileDisplay/FileDisplay';
 import Modal from './components/Modal/Modal';
+import InnerNav from './components/InnerNav/InnerNav';
+import FileTree from './components/FileTree/FileTree';
 
 //Diego Branch
 
@@ -42,7 +44,7 @@ class App extends Component {
             })
     }
     
-  setCurrentProject(project){
+  setCurrentProject = (project) =>{
         // This will fetch the files based on the current project that is open
         this.setState({currentProject: project});
         axios.get("https://react-my-burger-dfbcb.firebaseio.com/projectFiles.json")
@@ -59,10 +61,12 @@ class App extends Component {
             });
     }
     
+    //This will open the modal, and start the uploading process
     startUploadHandler = () => {
       this.setState({uploading: true})
     }
     
+    //This will cancel the upload process and close the modal
     cancelUploadHandler = () => {
       this.setState({uploading : false});
     }
@@ -78,14 +82,6 @@ class App extends Component {
       border: "2px solid #e4ecf5"
     }
  
-    const folderIcon = {
-      margin : "0 2px 0 0"
-    }
-    
-    let files = this.state.currentFiles.map((file)=>
-      <FileCard project = {file} />
-    )
-    
     return (
       <div className={classes.App}>
       <Modal show={this.state.uploading} modalClosed={this.cancelUploadHandler}/>
@@ -98,48 +94,12 @@ class App extends Component {
         </Navbar>
         <Row style={mainContainerStyle}>
             <Col xs = "2" className={classes.sideNav}>
-              <ul>
-                <li>
-                  <i class="fas fa-folder-open" style={folderIcon}></i>Project folder
-                  <ul>
-                    <li><i class="fas fa-folder" style={folderIcon}></i>Folder 1</li>
-                    <li><i class="fas fa-folder" style={folderIcon}></i>Folder 1</li>
-                    <li><i class="fas fa-folder" style={folderIcon}></i>Folder 1</li>
-                    <li><i class="fas fa-folder" style={folderIcon}></i>Folder 1</li>
-                    <li><i class="fas fa-folder" style={folderIcon}></i>Folder 1</li>
-                    <li><i class="fas fa-folder" style={folderIcon}></i>Folder 1</li>
-                    <li><i class="fas fa-folder" style={folderIcon}></i>Folder 1</li>
-                  </ul>
-                </li>
-              </ul>
+              <FileTree />
             </Col>
             <Col xs="10">
-              <Row>
-                <Col className={classes.innerNav}>
-                  <Button 
-                    color="secondary" 
-                    className={classes.uploadButton}
-                    onClick={this.startUploadHandler}>Upload</Button>
-                  <Button color="danger" className={classes.deleteButton}>Delete</Button>
-                  <Input placeholder="Search" className={classes.searchBar}/>
-                </Col>
-              </Row>
-              <Row>
-                <Col className ={classes.fileCardContainer} style = {{"height" : mainContainerStyle.height - 78}}>
-                  {files}
-                  {files}
-                  {files}
-                  {files}
-                  {files}
-                  {files}
-                  {files}
-                  {files}
-                  {files}
-                  {files}
-                  {files}
-                </Col>
-              </Row>
-             </Col>
+              <InnerNav clicked={this.startUploadHandler.bind(this)}/>
+              <FileDisplay height={this.state.windowHeight - 132} files={this.state.currentFiles}/>
+            </Col>
          </Row>
        </div>
     );

@@ -46,11 +46,3 @@ ul{
     float : right;
 }
 
-.fileCardContainer{
-    background-color : white;
-    box-shadow : 0 0 1px #aaa; 
-    overflow : auto; 
-    text-align :center;
-    
-}
-

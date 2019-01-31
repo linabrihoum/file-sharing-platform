@@ -1,0 +1,19 @@
+.innerNav{
+    background-color : #e4ecf5;
+    padding : 10px 0;
+}
+
+.uploadButton{
+    width : 150px;
+}
+
+.deleteButton{
+    float : right;
+    margin-left : 10px;
+}
+
+.searchBar{
+    width : 300px;
+    display : inline-block;
+    float : right;
+}
