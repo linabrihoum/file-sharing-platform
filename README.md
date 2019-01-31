@@ -8,8 +8,6 @@ Senior Design project about file sharing for the construction company Whiting Tu
 
 ## Requirements
 
-![alt text](https://whitingturner.sharepoint.com/sites/SEVDC2/Shared%20Documents/Resources/Graphics%20+%20Logos/VDC_Logo_Text.png "Whiting-Turner")
-
 Here are the features I think we should have. This is probably going to be a WIP so feel free to change this up.
 
 #### List of features
@@ -41,4 +39,4 @@ Here are the features I think we should have. This is probably going to be a WIP
 #### Prototype 1 Expectations
 
 I need some help getting these together so look over what I put up above and we can
-talk about it later. 
+talk about it later.
