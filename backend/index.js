@@ -3,13 +3,17 @@ var app = require('express')();
 var fs = require('fs');
 var md5 = require('md5');
 
+// Load SSL certificates.
 var certbotDir = '/etc/letsencrypt/live/zach.black';
 var server = require('https').createServer({
     key: fs.readFileSync(certbotDir + '/privkey.pem'),
     cert: fs.readFileSync(certbotDir + '/fullchain.pem'),
 }, app);
+
+// Define socket server.
 var io = require('socket.io')(server);
 
+// Define encryption.
 var passphrase = 'Qpud>CdkUbtu^yQ;!a>Ja`Zv?szt<22v',
     crypter = Crypt(passphrase);
 
@@ -36,7 +40,7 @@ io.on('connection', function (socket) {
         */
 
         // Temporary auth.
-        if (loginData.email == 'test@whiting-turner.com' && loginData.passwordHash == md5('password')) {
+        if (loginData.email == 'email@email.com' && loginData.passwordHash == md5('password')) {
             // Set authentication status.
             socket.authenticated = true;
             callback(true);
@@ -52,7 +56,7 @@ io.on('connection', function (socket) {
         if (socket.authenticated) {
             // Respond to client's request.
             callback(crypter.encrypt([
-                { projectID: 'p223', name: 'Project_1', access: false },
+                { projectID: 'p223', name: 'Project_1', access: true },
                 { projectID: 'p224', name: 'Project_2', access: false },
                 { projectID: 'p226', name: 'Project_3', access: true }
             ]));
