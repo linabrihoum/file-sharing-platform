@@ -1,7 +1,7 @@
 .dropZone{
     width: 90%;
     height: 400px;
-    padding: 60px 10px;
+    padding: 100px 10px;
     border: 2px dashed gray;
     margin: 0 auto 30px;
 }
@@ -10,14 +10,17 @@
     color: #aaa;
     text-align: center;
     font-size: 4em;
+    /*margin-bottom: 15px;*/
+}
+
+.dropText{
+    text-align: center;
     margin-bottom: 30px;
+    font-size: 1.3em;
 }
 
 .dropLabel{
-    text-align: center;
-    display: block;
-    margin-bottom: 30px;
-    font-size: 1.3em;
+    cursor: pointer;
 }
 
 .uploadBtn{

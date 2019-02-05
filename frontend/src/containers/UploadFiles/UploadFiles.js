@@ -49,7 +49,7 @@ class UploadFiles extends Component {
       return (
         <p key={index}>
           <span id={index} onClick={this.deleteFile}>
-            <Button color="danger" size="sm">Delete</Button>
+            <Button color="secondary" size="sm">Remove</Button>
           </span>
           {" " + file.name}
         </p>
@@ -77,10 +77,12 @@ class UploadFiles extends Component {
             <div className={classes.dropIcon}>
               <i class="fas fa-arrow-down"></i>
             </div>
-            <label htmlFor="file" className={classes.dropLabel}>
-              <strong>Choose a File</strong>
+            <div className={classes.dropText}>
+              <label htmlFor="file" className={classes.dropLabel}>
+                <strong>Choose a File</strong>
+              </label>
               <span> or drag it here</span>
-            </label>
+            </div>
             <Button color="info" className={classes.uploadBtn}>Upload</Button>
           </div>
         </div>
