@@ -3,10 +3,16 @@
     box-shadow: 0 0 3px #111;
 }
 
-.icon {
+.iconWrapper {
     font-size: 1.5em;
-    color : gray;
+    color : #aaa;
+    cursor: pointer;
+    margin-right: 10px;
     
+}
+
+.icon:hover{
+    color: #777;
 }
 
 .sideNav{

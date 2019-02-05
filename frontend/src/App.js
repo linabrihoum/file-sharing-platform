@@ -9,12 +9,19 @@ import AccountSettings from './screens/AccountSettings/AccountSettings';
 //Diego Branch
 
 class App extends Component {
-  
+    state ={
+      viewSettings : false
+    }
+    
+    openSettingsHandler = () =>{
+      this.setState({viewSettings: !this.state.viewSettings});
+    }
+    
     render(){
       return(
         <div>
-          <AccountSettings />
-          
+          {this.state.viewSettings ? 
+          <AccountSettings openSettings={this.openSettingsHandler.bind(this)} /> : <MainDashboard openSettings={this.openSettingsHandler.bind(this)} />}
         </div>
       );
     }

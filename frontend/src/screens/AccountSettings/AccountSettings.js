@@ -70,7 +70,11 @@ class AccountSettings extends Component {
                     <div className={classes.contentContainer}>
                         <SettingsContent menuOption={this.state.selectedOption} />
                     </div>
+                    <div className={classes.exit} onClick={this.props.openSettings}>
+                        <i className="far fa-times-circle"></i>
+                    </div>
                 </div>
+                
             </div>
         )
     }

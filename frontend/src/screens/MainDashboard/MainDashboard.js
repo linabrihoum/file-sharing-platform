@@ -9,6 +9,7 @@ import FileDisplay from '../../components/FileDisplay/FileDisplay';
 import Modal from '../../components/Modal/Modal';
 import InnerNav from '../../components/InnerNav/InnerNav';
 import FileTree from '../../components/FileTree/FileTree';
+import UploadFiles from '../../containers/UploadFiles/UploadFiles';
 
 class MainDashboard extends Component {
 state = {
@@ -81,12 +82,18 @@ state = {
  
     return (
       <div className={classes.App}>
-      <Modal show={this.state.uploading} modalClosed={this.cancelUploadHandler}/>
+      <Modal show={this.state.uploading} modalClosed={this.cancelUploadHandler}>
+        <UploadFiles />
+      </Modal>
         <Navbar className={classes.navbar}>
           <Projects projects={this.state.projects} setProject = {this.setCurrentProject.bind(this)}/>
-          <span className={classes.icon}>
-            <i className="far fa-question-circle" style={{"paddingRight":"5px"}}></i>
-            <i className="far fa-user-circle"></i>
+          <span className={classes.iconWrapper}>
+            <span className={classes.icon}>
+              <i className="far fa-question-circle" style={{"paddingRight":"5px"}}></i>
+            </span>
+            <span className={classes.icon}>
+              <i className="far fa-user-circle" onClick={this.props.openSettings}></i>
+            </span>
           </span>
         </Navbar>
         <Row style={mainContainerStyle}>
