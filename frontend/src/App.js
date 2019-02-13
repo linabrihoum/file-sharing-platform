@@ -5,6 +5,7 @@ import React, { Component } from 'react';
 import classes from'./App.css';
 import MainDashboard from './screens/MainDashboard/MainDashboard';
 import AccountSettings from './screens/AccountSettings/AccountSettings';
+import DirectoryIcon from './components/DirectoryIcon/DirectoryIcon';
 
 //Diego Branch
 
@@ -20,6 +21,15 @@ class App extends Component {
     render(){
       return(
         <div>
+          {/*<DirectoryIcon name={"root"}>
+            <DirectoryIcon name={"dir1"}>
+              <DirectoryIcon name={"dir1.1"}/>
+            </DirectoryIcon>
+            <DirectoryIcon name={"dir2"}/>
+            <DirectoryIcon name={"dir3"}/>
+            <DirectoryIcon name={"dir4"}/>
+            <DirectoryIcon name={"dir5"}/>
+          </DirectoryIcon>*/}
           {this.state.viewSettings ? 
           <AccountSettings openSettings={this.openSettingsHandler.bind(this)} /> : <MainDashboard openSettings={this.openSettingsHandler.bind(this)} />}
         </div>
