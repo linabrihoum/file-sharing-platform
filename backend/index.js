@@ -1,3 +1,7 @@
+// Server configuration.
+const port = 3001;
+
+// External libraries.
 require('g-crypt');
 var app = require('express')();
 var md5 = require('md5');
@@ -33,9 +37,11 @@ const SocketIOFile = require('socket.io-file');
 var passphrase = 'Qpud>CdkUbtu^yQ;!a>Ja`Zv?szt<22v',
     crypter = Crypt(passphrase);
 
-app.get('/', function (req, res) {
-    res.send('<strong>Not for access...</strong>');
-});
+console.log('\n');
+console.log('FSP Server');
+console.log('Version: ' + process.env.npm_package_version);
+console.log('Starting server on port ' + port + '...');
+console.log('\n');
 
 // Define how our connection functions.
 io.on('connection', function (socket) {
@@ -214,4 +220,4 @@ git('/srv/git/wt.git').raw(
 
 
 // Start listening on the server.
-server.listen(3001);
+server.listen(port);
