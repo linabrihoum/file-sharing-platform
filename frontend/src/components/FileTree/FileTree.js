@@ -1,4 +1,5 @@
 import React from 'react';
+import DirectoryIcon from '../DirectoryIcon/DirectoryIcon';
 
 const fileTree = props => {
     
@@ -8,20 +9,12 @@ const fileTree = props => {
     
     
     return(
-      <ul>
-        <li>
-          <i class="fas fa-folder-open" style={folderIcon}></i>Project folder
-          <ul>
-            <li><i class="fas fa-folder" style={folderIcon}></i>Folder 1</li>
-            <li><i class="fas fa-folder" style={folderIcon}></i>Folder 1</li>
-            <li><i class="fas fa-folder" style={folderIcon}></i>Folder 1</li>
-            <li><i class="fas fa-folder" style={folderIcon}></i>Folder 1</li>
-            <li><i class="fas fa-folder" style={folderIcon}></i>Folder 1</li>
-            <li><i class="fas fa-folder" style={folderIcon}></i>Folder 1</li>
-            <li><i class="fas fa-folder" style={folderIcon}></i>Folder 1</li>
-          </ul>
-        </li>
-      </ul>
+      <DirectoryIcon name="Main Project Directory">
+        <DirectoryIcon name="Folder 1"/>
+        <DirectoryIcon name="Folder 2"/>
+        <DirectoryIcon name="Folder 3"/>
+        <DirectoryIcon name="Folder 4"/>
+      </DirectoryIcon>
     );
 };
 

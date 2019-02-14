@@ -5,32 +5,18 @@ import classes from './DirectoryIcon.css';
 // This is eventually going to be a hook
 class directoryIcon extends Component {
     state = {
-        open : "false",
+        open : false,
         files : ["one.txt", "two.txt", "three.txt"]
     }
     
-    componentWillReceiveProps(nextProps){
-        console.log("[willRecieveProps]",nextProps);
-    }
-    
-    shouldComponentUpdate(nextProps, nextState){
-        if(this.state.open === nextState.open){
-            return false;
-        }
-       return true;
-    }
-    
+   
     openDirectoryHandler = () => {
-        if(this.state.open === "false"){
-            this.setState({open : "true"});
-        }else{
-            this.setState({open : "false"})
-        }
+        this.setState({open : !this.state.open});
 
     }
     
     render(){
-        console.log("render");
+        
         let directory = (
             <div onClick={this.openDirectoryHandler}>
                 <i className="fas fa-folder"></i>
@@ -38,7 +24,7 @@ class directoryIcon extends Component {
             </div>);
         
         let files = null;
-        if(this.state.open === "true"){
+        if(this.state.open){
             directory = (
             <div onClick={this.openDirectoryHandler}>
                 <i class="fas fa-folder-open"></i>
@@ -54,7 +40,7 @@ class directoryIcon extends Component {
             <div>
                 {directory}
                 {files}
-                {this.state.open === "true" ? children : null}
+                {this.state.open ? children : null}
             </div>
         )
     }
