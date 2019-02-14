@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 
+
 import {
     Container,
     Row,
@@ -12,6 +13,7 @@ import {
     Label,
     Input,
     Button,
+    Alert,
     Img
 } from 'reactstrap';
 
@@ -24,7 +26,8 @@ export default class LoginForm extends Component {
 
         this.state = {
             email: '',
-            password: ''
+            password: '',
+            authenticationError: false
         }
 
         this.app = props.app;
@@ -40,9 +43,16 @@ export default class LoginForm extends Component {
             
             // Set authentication state.
             this.app.setState({authenticated: true });
+
+            // Test project creation.
+            window.socket.emit('request_createProject',
+            {name: 'Test Project 1'},
+            (creationStatus) => {
+                console.log('Project created: ' + creationStatus);
+            });
           }
           else {
-              alert('Authorization failed!');
+              this.setState({authenticationError: true});
           }
         });
 
@@ -58,6 +68,13 @@ export default class LoginForm extends Component {
                         <Card>
                             <CardHeader>Login</CardHeader>
                             <CardBody>
+                                {
+                                    this.state.authenticationError &&
+
+                                    <Alert color="danger">
+                                    Incorrect login credentials.
+                                    </Alert>
+                                }
                                 <Form onSubmit={this.performLogin}>
                                     <FormGroup>
                                         <Label for="loginEmail">Email</Label>

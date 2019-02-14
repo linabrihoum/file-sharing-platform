@@ -9,7 +9,8 @@
     "react-dom": "^16.6.1",
     "react-scripts": "2.1.1",
     "reactstrap": "^6.5.0",
-    "socket.io": "^2.1.1"
+    "socket.io": "^2.1.1",
+    "socket.io-file": "^2.0.3"
   },
   "scripts": {
     "start": "PORT=80 react-scripts start",
