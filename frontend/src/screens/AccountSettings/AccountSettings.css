@@ -1,0 +1,68 @@
+.mainContainer{
+    min-width: 800px;
+    
+}
+
+.sideBar{
+    width: 30%;
+    height: 100%;
+    display: inline-block;
+    overflow: auto;
+    background-color: #e4ecf5;
+}
+
+.sideBarContainer{
+    width: 220px;
+    float: right;
+    padding: 60px 15px 60px 10px;
+}
+
+.content{
+    width: 70%;
+    min-width: 440px;
+    height: 100%;
+    display: inline-block;
+    overflow: auto;
+}
+
+.contentContainer{
+    display: inline-block;
+    width: 80%;
+    padding: 60px 0 60px 40px;
+}
+
+.userPic {
+    
+    margin: 10px auto;
+    height: 125px;
+    width: 125px;
+    background-color: #bbb;
+    border-radius: 50%;
+}
+
+.menuOption{
+    cursor: pointer;
+    font-weight: 400;
+    font-size: 1.2em;
+    border : 1px solid gray;
+    border-top: none;
+    padding: 5px 0 5px 5px;
+    letter-spacing: 0.8px;
+}
+
+.menuOption:hover{
+    background-color : rgba(55,79,101, 1.0);
+    color: white;
+}
+
+.exit{
+    display: inline-block;
+    font-size: 2em;
+    cursor: pointer;
+    color: #aaa;
+}
+
+.exit:hover{
+    color: #555;
+}
+

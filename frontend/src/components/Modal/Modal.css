@@ -1,0 +1,26 @@
+.Modal {
+    position: fixed;
+    z-index: 500;
+    background-color: white;
+    width: 50%;
+    min-width: 500px;
+    border: 1px solid #ccc;
+    box-shadow: 1px 1px 1px gray;
+    padding: 16px;
+    left: 25%;
+    top: 15%;
+    box-sizing: border-box;
+    /*transition: all 0.3s ease-out;*/
+}
+
+.Close{
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin-right: 10px;
+    font-size: 1.2em;
+}
+
+.Title{
+    text-align: center;
+}
