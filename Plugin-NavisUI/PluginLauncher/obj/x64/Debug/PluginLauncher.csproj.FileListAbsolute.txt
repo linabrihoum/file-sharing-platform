@@ -1,0 +1,13 @@
+C:\Users\madsc\source\repos\NavisConsole\PluginLauncher\PluginLauncher\bin\x64\Debug\PluginLauncher.dll
+C:\Users\madsc\source\repos\NavisConsole\PluginLauncher\PluginLauncher\bin\x64\Debug\PluginLauncher.pdb
+C:\Users\madsc\source\repos\NavisConsole\PluginLauncher\PluginLauncher\bin\x64\Debug\Autodesk.Navisworks.Api.dll
+C:\Users\madsc\source\repos\NavisConsole\PluginLauncher\PluginLauncher\bin\x64\Debug\Autodesk.Navisworks.Automation.dll
+C:\Users\madsc\source\repos\NavisConsole\PluginLauncher\PluginLauncher\bin\x64\Debug\Autodesk.Navisworks.Api.xml
+C:\Users\madsc\source\repos\NavisConsole\PluginLauncher\PluginLauncher\bin\x64\Debug\Autodesk.Navisworks.Automation.xml
+C:\Users\madsc\source\repos\NavisConsole\PluginLauncher\PluginLauncher\obj\x64\Debug\PluginLauncher.csproj.CoreCompileInputs.cache
+C:\Users\madsc\source\repos\NavisConsole\PluginLauncher\PluginLauncher\obj\x64\Debug\PluginLauncher.dll
+C:\Users\madsc\source\repos\NavisConsole\PluginLauncher\PluginLauncher\obj\x64\Debug\PluginLauncher.pdb
+D:\Navisworks\Navisworks Manage 2018\Plugins\FSP-Plugin\PluginLauncher.dll
+D:\Navisworks\Navisworks Manage 2018\Plugins\FSP-Plugin\PluginLauncher.pdb
+D:\Navisworks\Navisworks Manage 2018\Plugins\PluginLauncher\PluginLauncher.dll
+D:\Navisworks\Navisworks Manage 2018\Plugins\PluginLauncher\PluginLauncher.pdb

@@ -1,0 +1,2 @@
+C:\Users\madsc\source\repos\NavisConsole\PluginLauncher\PluginLauncher\obj\Debug\PluginLauncher.csprojAssemblyReference.cache
+C:\Users\madsc\source\repos\NavisConsole\PluginLauncher\PluginLauncher\obj\Debug\PluginLauncher.csproj.CoreCompileInputs.cache

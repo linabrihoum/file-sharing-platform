@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>Hello Plugin</h1>
+    <button onclick="openNavis()">Open Navisworks</button>
+    <script>
+        const { ipcRenderer } = require('electron')
+        function openNavis() {
+            console.log(ipcRenderer.sendSync('synchronous-message', 'launchNavis')) // prints "pong"
+        }
+        ipcRenderer.on('asynchronous-reply', (event, arg) => {
+            console.log(arg) // prints "pong"
+        });
+    </script>
+</body>
+
+</html>

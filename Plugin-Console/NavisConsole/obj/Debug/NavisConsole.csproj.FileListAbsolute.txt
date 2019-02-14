@@ -1,0 +1,7 @@
+C:\Users\madsc\source\repos\NavisConsole\NavisConsole\bin\Debug\NavisConsole.exe.config
+C:\Users\madsc\source\repos\NavisConsole\NavisConsole\bin\Debug\NavisConsole.exe
+C:\Users\madsc\source\repos\NavisConsole\NavisConsole\bin\Debug\NavisConsole.pdb
+C:\Users\madsc\source\repos\NavisConsole\NavisConsole\obj\Debug\NavisConsole.csprojAssemblyReference.cache
+C:\Users\madsc\source\repos\NavisConsole\NavisConsole\obj\Debug\NavisConsole.csproj.CoreCompileInputs.cache
+C:\Users\madsc\source\repos\NavisConsole\NavisConsole\obj\Debug\NavisConsole.exe
+C:\Users\madsc\source\repos\NavisConsole\NavisConsole\obj\Debug\NavisConsole.pdb
