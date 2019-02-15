@@ -2,6 +2,12 @@
     margin-left: 20px;
 }
 
+.fileStyle{
+    color: #444;
+}
+
+
 .fileName{
     margin-left: 5px;
+    color: #444;
 }

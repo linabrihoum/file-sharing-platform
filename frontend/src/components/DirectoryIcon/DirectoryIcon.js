@@ -18,7 +18,7 @@ class directoryIcon extends Component {
     render(){
         
         let directory = (
-            <div onClick={this.openDirectoryHandler}>
+            <div onClick={this.openDirectoryHandler} className={classes.fileStyle}>
                 <i className="fas fa-folder"></i>
                 <span className={classes.fileName}>{this.props.name}</span>
             </div>);
@@ -26,7 +26,7 @@ class directoryIcon extends Component {
         let files = null;
         if(this.state.open){
             directory = (
-            <div onClick={this.openDirectoryHandler}>
+            <div onClick={this.openDirectoryHandler} className={classes.fileStyle}>
                 <i class="fas fa-folder-open"></i>
                 <span className={classes.fileName}>{this.props.name}</span>
             </div>);
@@ -37,11 +37,11 @@ class directoryIcon extends Component {
         
         let children = <div className={classes.tab}>{this.props.children}</div>;
         return(
-            <div>
+            <React.Fragment>
                 {directory}
                 {files}
                 {this.state.open ? children : null}
-            </div>
+            </React.Fragment>
         )
     }
 }
