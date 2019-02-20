@@ -71,6 +71,14 @@ state = {
   
   render() {
     
+    let modal = null;
+    
+    if(this.state.uploading){
+      modal = <Modal show={this.state.uploading} modalClosed={this.cancelUploadHandler}>
+        <UploadFiles />
+      </Modal>;
+    }
+    
     const mainContainerStyle = {
       height: this.state.windowHeight - 54,
       padding: "8px",
@@ -82,9 +90,7 @@ state = {
  
     return (
       <div className={classes.App}>
-      <Modal show={this.state.uploading} modalClosed={this.cancelUploadHandler}>
-        <UploadFiles />
-      </Modal>
+      {modal}
         <Navbar className={classes.navbar}>
           <Projects projects={this.state.projects} setProject = {this.setCurrentProject.bind(this)}/>
           <span className={classes.iconWrapper}>

@@ -1,9 +1,11 @@
 .tab{
     margin-left: 20px;
+    cursor: pointer;
 }
 
 .fileStyle{
     color: #444;
+    cursor: pointer;
 }
 
 
