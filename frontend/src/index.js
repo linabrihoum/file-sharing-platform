@@ -5,11 +5,7 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import io from 'socket.io-client';
 
-const socket = io("https://whiting-turner-diegodltl.c9users.io:8080");
 
-socket.on('connect', () =>{
-    console.log("Client connected");
-})
 // Does not work after ejecting project
 //import 'bootstrap/dist/css/bootstrap.css';
 

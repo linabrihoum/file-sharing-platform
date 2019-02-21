@@ -5,7 +5,7 @@ import FileCard from '../FileCard/FileCard';
 import classes from './FileDisplay.css'
 
 const fileDisplay = (props) => {
-    
+    console.log("New Props from file Display");
     let files = props.files.map((file)=>
       <FileCard project = {file} />
     )

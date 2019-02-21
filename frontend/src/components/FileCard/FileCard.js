@@ -13,8 +13,6 @@ const fileCard = (props) =>(
             <CardText className={classes.cardText}>{props.project}</CardText>
         </Card>
         
-
-        
 );
 
 
