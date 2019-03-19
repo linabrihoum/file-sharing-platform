@@ -35,26 +35,30 @@ export default class LoginForm extends Component {
     }
 
     performLogin(event) {
-        window.socket.emit('request_authenticate',
-        { email: this.state.email, passwordHash: this.md5(this.state.password) },
-        (authStatus) => {
-          if (authStatus) {
-            console.log('Authenticated!');
-            
-            // Set authentication state.
-            this.app.setState({authenticated: true });
+        // Define message for authentication.
+        var authMsg = { email: this.state.email, passwordHash: this.md5(this.state.password) };
 
-            // Test project creation.
-            window.socket.emit('request_createProject',
-            {name: 'Test Project 1'},
-            (creationStatus) => {
-                console.log('Project created: ' + creationStatus);
+        window.socket.emit('request_authenticate',
+            window.crypter.encrypt(authMsg),
+            (authStatus) => {
+                if (authStatus) {
+                    console.log('Authenticated!');
+
+                    // Set authentication state.
+                    this.app.setState({ authenticated: true });
+
+                    // Test project creation.
+                    /*
+                    window.socket.emit('request_createProject',
+                    {name: 'New Project'},
+                    (creationStatus) => {
+                        console.log('Project created: ' + creationStatus);
+                    });*/
+                }
+                else {
+                    this.setState({ authenticationError: true });
+                }
             });
-          }
-          else {
-              this.setState({authenticationError: true});
-          }
-        });
 
         event.preventDefault();
     }
@@ -62,9 +66,9 @@ export default class LoginForm extends Component {
     render() {
         return (
             <Container>
-                <img src="http://www.whiting-turner.com/images/WT-Orange.png" className="img-logo img-fluid d-block mx-auto" alt="Whiting Turner"/>
+                <img src="http://www.whiting-turner.com/images/WT-Orange.png" className="img-logo img-fluid d-block mx-auto" alt="Whiting Turner" />
                 <Row>
-                    <Col lg={{ size: 6, offset: 3 }} md={{ size: 10, offset: 1}}>
+                    <Col lg={{ size: 6, offset: 3 }} md={{ size: 10, offset: 1 }}>
                         <Card>
                             <CardHeader>Login</CardHeader>
                             <CardBody>
@@ -72,16 +76,16 @@ export default class LoginForm extends Component {
                                     this.state.authenticationError &&
 
                                     <Alert color="danger">
-                                    Incorrect login credentials.
+                                        Incorrect login credentials.
                                     </Alert>
                                 }
                                 <Form onSubmit={this.performLogin}>
                                     <FormGroup>
                                         <Label for="loginEmail">Email</Label>
-                                        <Input 
-                                            type="email" 
-                                            name="email" 
-                                            id="loginEmail" 
+                                        <Input
+                                            type="email"
+                                            name="email"
+                                            id="loginEmail"
                                             placeholder="user@whiting-turner.com"
                                             value={this.state.email}
                                             onChange={e => this.setState({ email: e.target.value })}
@@ -89,10 +93,10 @@ export default class LoginForm extends Component {
                                     </FormGroup>
                                     <FormGroup>
                                         <Label for="loginPassword">Password</Label>
-                                        <Input 
-                                            type="password" 
-                                            name="password" 
-                                            id="loginPassword" 
+                                        <Input
+                                            type="password"
+                                            name="password"
+                                            id="loginPassword"
                                             placeholder="Password"
                                             value={this.state.password}
                                             onChange={e => this.setState({ password: e.target.value })}

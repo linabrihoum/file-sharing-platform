@@ -9,6 +9,7 @@ export default class ProjectDropdown extends Component {
     this.toggle = this.toggle.bind(this);
     this.state = {
       projectName: 'Select Project',
+      currentProject: null,
       availableProjects: [],
       dropdownOpen: false
     };
@@ -16,6 +17,10 @@ export default class ProjectDropdown extends Component {
     // Bind methods.
     this.setCurrentProject = this.setCurrentProject.bind(this);
     this.toggle = this.toggle.bind(this);
+    this.isProjectSelected = this.isProjectSelected.bind(this);
+
+    // Send reference to project selection.
+    this.props.onRef(this.isProjectSelected);
   }
 
   componentDidMount() {
@@ -35,8 +40,21 @@ export default class ProjectDropdown extends Component {
   }
 
   setCurrentProject(key) {
-    this.setState({ projectName: this.state.availableProjects[key].name });
-    console.log('You have selected project ' + this.state.availableProjects[key].projectID);
+    // Let server know what project is selected.
+    window.socket.emit('request_project',
+      window.crypter.encrypt({ ID: this.state.availableProjects[key].ID}),
+        (encryptedProjectData) => {
+          console.log(window.crypter.decrypt(encryptedProjectData));
+        });
+
+    // Update project selection state.
+    this.setState({ projectName: this.state.availableProjects[key].Name, currentProject: key });
+    console.log('You have selected project ' + this.state.availableProjects[key].ID);
+  }
+
+  isProjectSelected()
+  {
+    return this.state.currentProject != null;
   }
 
   render() {
@@ -53,9 +71,9 @@ export default class ProjectDropdown extends Component {
                 key={index}
                 projectKey={index}
                 setProject={this.setCurrentProject}
-                disabled={!project.access}
+                disabled={!project.Access}
               >
-                {project.name}
+                {project.Name}
               </ProjectDropdownItem>
             );
           })}

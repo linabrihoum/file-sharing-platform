@@ -38,7 +38,11 @@ code {
   background-color: blue;
 }
 
-.navbar {
+.file-browser-nav {
+  background-color: grey;
+}
+
+.navbar-main {
   height: 15%;
 }
 
@@ -48,7 +52,7 @@ code {
 }
 
 @media (min-height: 600px) {
-  .navbar {
+  .navbar-main {
     height: 10%;
   }
   
@@ -58,7 +62,7 @@ code {
 }
 
 @media (min-height: 1200px) {
-  .navbar {
+  .navbar-main {
     height: 5%;
   }
   

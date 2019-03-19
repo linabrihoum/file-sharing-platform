@@ -1,0 +1,43 @@
+.navbar{
+    background-color: rgba(55,79,101, 1.0);
+    box-shadow: 0 0 3px #111;
+}
+
+.iconWrapper {
+    font-size: 1.5em;
+    color : #aaa;
+    cursor: pointer;
+    margin-right: 10px;
+    
+}
+
+.icon:hover{
+    color: #777;
+}
+
+.sideNav{
+    background-color : #e4ecf5;
+    white-space : nowrap;
+    overflow : auto;
+    padding-top : 10px;
+}
+
+.innerNav{
+    background-color : #e4ecf5;
+    padding : 10px 0;
+}
+
+.uploadButton{
+    width : 150px;
+}
+
+.deleteButton{
+    float : right;
+    margin-left : 10px;
+}
+
+.searchBar{
+    width : 300px;
+    display : inline-block;
+    float : right;
+}

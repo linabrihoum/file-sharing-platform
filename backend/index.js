@@ -2,180 +2,174 @@
 const port = 3001;
 
 // External libraries.
-require('g-crypt');
 var app = require('express')();
 var md5 = require('md5');
-const fs = require('fs-extra')
+const fs = require('fs-extra');
 
-// MySQL
-var mysql = require('mysql');
-var connection = mysql.createConnection({
-    host: 'localhost',
-    user: 'wt',
-    password: '8bU*^x48K3j+#YDG',
-    database: 'wtdb'
-});
+// Database interaction.
+const db = require('./components/database');
 
-// Git
-const git = require('simple-git');
-const gitPromise = require('simple-git/promise');
+// Source control backend.
+const sc = require('./components/sourceControl');
+
+// Authentication.
+const auth = require('./components/authentication');
+
+// Message encryption.
+const crypt = require('./components/encryption');
+
+// User workspace.
+const Workspace = require('./workspace/workspace');
+const ProjectState = require('./workspace/state');
+const Project = require('./workspace/project');
 
 // Load SSL certificates.
 var certbotDir = '/etc/letsencrypt/live/zach.black';
-var server = require('http').createServer(app);
-/*
 var server = require('https').createServer({
     key: fs.readFileSync(certbotDir + '/privkey.pem'),
     cert: fs.readFileSync(certbotDir + '/fullchain.pem'),
-}, app);*/
+}, app);
+//var server = require('http').createServer(app);
 
 // Define socket server.
 var io = require('socket.io')(server);
 const SocketIOFile = require('socket.io-file');
 
-// Define encryption.
-var passphrase = 'Qpud>CdkUbtu^yQ;!a>Ja`Zv?szt<22v',
-    crypter = Crypt(passphrase);
-
-console.log('\n');
-console.log('FSP Server');
-console.log('Version: ' + process.env.npm_package_version);
-console.log('Starting server on port ' + port + '...');
-console.log('\n');
+// IO Output log.
+io.log = (out) => {
+    console.log('[\x1b[32mSocket\x1b[0m] %s', out);
+}
 
 // Define how our connection functions.
 io.on('connection', function (socket) {
-    console.log('Client connected.');
+    io.log('Client connected.');
 
     // Set default state of authentication.
     socket.authenticated = false;
 
     // Emit test message.
-    socket.emit('test', crypter.encrypt('hello'));
+    //socket.emit('test', crypter.encrypt('hello'));
 
     // Define authentication method.
-    socket.on('request_authenticate', (loginData, callback) => {
-        console.log('Authentication request received.');
-
+    socket.on('request_authenticate', (encryptedLoginData, callback) => {
         /*
             Authenticate user here --
         */
 
-        // Temporary auth.
-        if (loginData.email == 'test@whiting-turner.com' && loginData.passwordHash == md5('password')) {
-            // Set authentication status.
-            socket.authenticated = true;
+        // Decrypt login data.
+        var loginData = crypt.decrypt(encryptedLoginData);
 
-            // Assign our user id.
-            socket.uid = 1;
+        // Verify login data.
+        if (loginData != null) {
+            auth.authUser(loginData.email, loginData.passwordHash, (success) => {
+                if (success) {
+                    // Set authentication status.
+                    socket.authenticated = true;
 
-            // Clone our temp repo.
-            /*
-            gitPromise().silent(true)
-                .clone('/srv/git/wt.git', 'repos/tmp/' + md5(socket.uid) + '/project1')
-                .then(() => console.log('finished'))
-                .catch((err) => console.error('failed: ', err));*/
+                    // Assign our user id.
+                    socket.uid = 1;
 
-            callback(true);
-        }
-        else {
-            callback(false);
+                    // Create new user workspace.
+                    socket.workspace = new Workspace();
+
+                    callback(true);
+                }
+                else {
+                    callback(false);
+                }
+            });
         }
     });
 
     // Define project creation.
     socket.on('request_createProject', (projectData, callback) => {
-        console.log('Project Creation request received.');
+        io.log('Project creation request received.');
 
         // Validate authentication.
         if (socket.authenticated) {
-            // Validate user permissions to create projects...
-            console.log(projectData);
 
-            connection.connect();
+            // TODO: Validate user permissions to create projects...
 
-            // Insert project info into DB.
-            connection.query('INSERT INTO Projects SET ?', { Name: projectData.name },
-                function (error, results, fields) {
-                    if (error) throw error;
+            // Add project to database.
+            db.addProject(projectData.name, (projectID) => {
 
-                    // Create hash from the inserted ID.
-                    var projectHash = md5(results.insertId),
-                        projectDir = 'repos/main/' + projectHash + '.git';
+                // Create hash from the inserted ID.
+                var projectHash = md5(projectID);
 
-                    // Create project directory.
-                    fs.mkdirSync(projectDir);
-
-                    git(projectDir).init(true)
-                        .raw([
-                            'lfs',
-                            'install'
-                        ], () => {
-                            console.log('Repo created and LFS setup.');
-
-                            // Clone repo and create initial commit.
-                            gitPromise().silent(true)
-                                .clone(projectDir, 'repos/main/tmp/' + projectHash)
-                                .then(() => {
-                                    // Move gitattributes copy.
-                                    fs.copyFileSync('repos/gitattributes',
-                                        'repos/main/tmp/' + projectHash + '/.gitattributes');
-
-                                    // Add gitattributes and commit push.
-                                    git('repos/main/tmp/' + projectHash)
-                                        .add('.gitattributes')
-                                        .commit('Initial commit.')
-                                        .push('origin', 'master')
-                                        .exec(() => {
-                                            git(projectDir).raw(
-                                                [
-                                                    'ls-tree',
-                                                    '--full-tree',
-                                                    '-r',
-                                                    '-z',
-                                                    '--name-only',
-                                                    '--full-name',
-                                                    'HEAD'
-                                                ], (err, result) => {
-                                                    if (err == null) {
-                                                        console.log(result.split('\0'));
-                                                        console.log(result.split('\0').filter((s) => {
-                                                            return !s.match(/\..+|^$/);
-                                                        }));
-                                                    }
-                                                });
-
-                                            // Return callback.
-                                            callback(true);
-                                        });
-                                });
-                        });
+                // Create our source control repo for new project.
+                sc.createProjectRepo(projectHash, () => {
+                    callback(true);
                 });
-
-            connection.end();
+            });
 
             return;
         }
+
+        io.log('Project creation request denied, user is unauthenticated.');
 
         // Project was not created.
         callback(false);
     });
 
     socket.on('request_projectList', (callback) => {
-        console.log('Project list request received.');
+        io.log('Project list request received.');
 
+        // Verify user is authenticated.
         if (socket.authenticated) {
-            // Respond to client's request.
-            callback(crypter.encrypt([
-                { projectID: 'p223', name: 'Project_1', access: true },
-                { projectID: 'p224', name: 'Project_2', access: false },
-                { projectID: 'p226', name: 'Project_3', access: true }
-            ]));
+
+            db.getProjects((results) => {
+                // Add projects to workspace.
+                results.forEach((project) => {
+                    if (!project.Access)
+                        return;
+
+                    // Define project directory.
+                    var projectDir = 'repos/tmp/' + md5(socket.uid) + '/' + md5(project.ID);
+
+                    // Add project to workspace.
+                    socket.workspace.addProject(projectDir, project.ID);
+                });
+
+                // Respond to client's request.
+                callback(crypt.encrypt(results));
+
+                io.log('Project list sent.');
+            });
         }
     });
 
+    socket.on('request_project', (encryptedProjectSelection, callback) => {
+        // Verify user authenticated.
+        if (socket.authenticated) {
+
+            io.log('Project selection request received.');
+
+            // Decrypt user's project selection.
+            var projectSelection = crypt.decrypt(encryptedProjectSelection);
+
+            // Set current workspace project.
+            socket.workspace.setProject(projectSelection.ID, (err) => {
+                if (!err) {
+                    io.log('Workspace project set to ' + projectSelection.ID + '.');
+
+                    var projectData = { };
+
+                    console.log(fs.readdirSync(socket.workspace.currentProject.dir));
+
+                } 
+                else {
+                    io.log('Workspace error: ' + err);
+                }
+            });
+
+            return;
+        }
+
+        io.log('Project info requested but user is unauthenticated!');
+    });
+
     socket.on('disconnect', function () {
-        console.log('Client disconnected.');
+        io.log('Client disconnected.');
 
         // Check if client was authenticated.
         if (socket.authenticated) {
@@ -184,40 +178,50 @@ io.on('connection', function (socket) {
                 if (error) {
                     throw error;
                 }
-                console.log('Removed temp dir for UID: ' + socket.uid);
+
+                io.log('Removed user temp directory.');
             });
         }
     });
-});
 
-
-/*
-
-git().silent(true)
-    .clone('/srv/git/wt.git', 'repos/uid')
-    .then(() => console.log('finished'))
-    .catch((err) => console.error('failed: ', err));
-
-    */
-
-git('/srv/git/wt.git').raw(
-    [
-        'ls-tree',
-        '--full-tree',
-        '-r',
-        '-z',
-        '--name-only',
-        '--full-name',
-        'HEAD'
-    ], (err, result) => {
-        if (err == null) {
-            console.log(result.split('\0').filter((s) => {
-                return !s.match(/\..+|^$/);
-            }));
+    var uploader = new SocketIOFile(socket, {
+        uploadDir: 'upload',
+        accepts: [],
+        chunkSize: 10240,
+        transmissionDelay: 0,
+        overwrite: false,
+        rename: (fileName, fileInfo) => {
+            // Return random generated hash.
+            return crypt.generateHash(25);
         }
     });
 
+    uploader.on('start', (fileInfo) => {
+        console.log('Start uploading');
+    });
 
+    uploader.on('complete', (fileInfo) => {
+        console.log('Upload Complete.');
+        console.log(fileInfo);
+        
+        // Move the file to current working directory.
+        fs.moveSync(fileInfo.uploadDir, socket.workspace.currentProject.dir + '/' + fileInfo.originalFileName);
+
+        // Add new file to source control.
+        sc.addPush(socket.workspace.currentProject.dir, fileInfo.originalFileName);
+    });
+});
 
 // Start listening on the server.
-server.listen(port);
+server.listen(port, (err) => {
+    if (!err) {
+        console.log('\n');
+        console.log('FSP Server');
+        console.log('Version: ' + process.env.npm_package_version);
+        console.log('Server started on port ' + port);
+        console.log('');
+    }
+    else {
+        console.log('Error: ' + error);
+    }
+});

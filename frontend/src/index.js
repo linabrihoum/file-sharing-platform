@@ -5,14 +5,18 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import io from 'socket.io-client';
+import SocketIOFileClient from 'socket.io-file-client';
 import Crypt from 'g-crypt';
 
 // Define encryption passphrase.
 var passphrase = 'Qpud>CdkUbtu^yQ;!a>Ja`Zv?szt<22v';
 
 // Define socket connection.
-//window.socket = io('https://zach.black:3001', {secure: true});
-window.socket = io('http://45.79.74.60:3001', {secure: true});
+window.socket = io('https://zach.black:3001', {secure: true});
+//window.socket = io('http://45.79.74.60:3001', {secure: true});
+
+// Uploader.
+window.uploader = new SocketIOFileClient(window.socket);
 
 // Define crypter.
 window.crypter = Crypt(passphrase);
