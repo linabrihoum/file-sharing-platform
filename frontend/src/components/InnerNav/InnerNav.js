@@ -3,7 +3,6 @@ import { Row, Col, Button, Input} from 'reactstrap';
 
 import classes from './InnerNav.css';
 
-
 const innerNav = (props) => {
     
     return(

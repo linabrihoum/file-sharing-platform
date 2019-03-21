@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import Directory from '../DirectoryIcon/DirectoryIcon';
 import { connect } from 'react-redux';
 
-import root from '../../Data';
-
+const TAB = 15;
 class FileTree extends Component{
     
   render(){
@@ -13,18 +12,23 @@ class FileTree extends Component{
     
     let docs = [];
     let tab = 0;
-    let path = ["/"];
-    
-    function traverse(node) {
+    let path = [];
 
-      tab += 15;
+    let files = { ...this.props.projectFiles.content};
+    
+    // This function will go through the object stored in the Redux store and determine which directory will be displayed and selected
+    // Each directory will be passed down a path to its corresponding properties
+    function traverse(node) {
+      // This will determine the amount of indentation each directory will have
+      tab += TAB;
 
       for (const key of Object.keys(node)) {
         path.push(key);
         if (node[key].isDir) {
           let currentPath = [...path];
-          docs.push(<Directory name={key} tab={tab} path={currentPath} />);
+          docs.push(<Directory name={key} tab={tab} path={currentPath} selected={node[key].selected}/>);
           if(!node[key].isOpen){
+            path.pop();
             continue;
           }
         }
@@ -36,11 +40,11 @@ class FileTree extends Component{
       }
 
       path.pop();
-      tab -= 15;
+      tab -= TAB;
     }
 
     if(this.props.projectFiles){
-      traverse(this.props.projectFiles.content);
+      traverse(files);
     }
 
     return(

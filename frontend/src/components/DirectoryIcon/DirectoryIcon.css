@@ -1,6 +1,9 @@
-.tab{
-    margin-left: 20px;
+.Directory{
     cursor: pointer;
+}
+
+.Directory:hover{
+    background: #b6d6f9;
 }
 
 .fileStyle{
