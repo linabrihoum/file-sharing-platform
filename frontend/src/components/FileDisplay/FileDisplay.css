@@ -3,5 +3,7 @@
     box-shadow : 0 0 1px #aaa; 
     overflow : auto; 
     text-align :center;
-    
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;    
 }

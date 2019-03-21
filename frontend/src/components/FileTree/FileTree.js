@@ -2,9 +2,17 @@ import React, { Component } from 'react';
 import Directory from '../DirectoryIcon/DirectoryIcon';
 import { connect } from 'react-redux';
 
+import { OPEN_ROOT } from '../../store/actions/actionTypes';
+import classes from './FileTree.css';
+
 const TAB = 15;
+
 class FileTree extends Component{
     
+  rootFolderHandler = () => {
+    this.props.onOpenRoot();
+  }
+
   render(){
     const folderIcon = {
       margin : "0 2px 0 0"
@@ -47,8 +55,23 @@ class FileTree extends Component{
       traverse(files);
     }
 
+    let rootStyle = {
+      backgroundColor: "#b6d6f9",
+      cursor: "pointer"
+    }
+
+    if(this.props.path){
+      rootStyle.backgroundColor = "initial";
+    }
+
     return(
       <>
+        <div onClick={this.rootFolderHandler} style={rootStyle}>
+          <span className={classes.ArchiveIcon}>
+            <i className="fas fa-archive" />
+          </span>
+          Project Files
+        </div>
         {docs}
       </>
     );
@@ -57,13 +80,15 @@ class FileTree extends Component{
 
 const mapStateToProps = state => {
   return{
-    projectFiles: state.files.files
+    projectFiles: state.files.files,
+    path: state.files.selected
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return{
+    onOpenRoot: () => dispatch({type: OPEN_ROOT})
   }
 }
 
-export default connect(mapStateToProps, null)(FileTree);
+export default connect(mapStateToProps, mapDispatchToProps)(FileTree);

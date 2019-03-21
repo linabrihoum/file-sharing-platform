@@ -35,7 +35,7 @@ let root = {
         },
         hash: "3",
         isDir: true,
-        isOpen: true
+        isOpen: false
       },
       folder10: {
         content: {
@@ -52,27 +52,68 @@ let root = {
             isOpen: true
           },
           folder3: {
-            content: {},
+            content: {
+              "filetF3.txt": {
+                content: null,
+                hash: "5",
+                isDir: false
+              }
+            },
             hash: "2",
             isDir: true,
             isOpen: true
           },
           folder4: {
-            content: {},
+            content: {
+              "filetF4.txt": {
+                content: null,
+                hash: "5",
+                isDir: false
+              }
+            },
             hash: "21",
             isDir: true,
             isOpen: true
           },
-          folder5: {
+          "File5.txt": {
             content: {},
             hash: "23",
-            isDir: true,
-            isOpen: true
+            isDir: false
+          },
+          "File6.txt": {
+            content: {},
+            hash: "23",
+            isDir: false
+          },
+          "File7.txt": {
+            content: {},
+            hash: "23",
+            isDir: false
+          },
+          "File8.txt": {
+            content: {},
+            hash: "23",
+            isDir: false
+          },
+          "File9.txt": {
+            content: {},
+            hash: "23",
+            isDir: false
+          },
+          "File10.txt": {
+            content: {},
+            hash: "23",
+            isDir: false
+          },
+          "File11.txt": {
+            content: {},
+            hash: "23",
+            isDir: false
           }
         },
         hash: "3",
         isDir: true,
-        isOpen: true
+        isOpen: false
       },
       "file30.txt": {
         content: null,
