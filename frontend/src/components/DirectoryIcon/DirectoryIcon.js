@@ -7,6 +7,10 @@ import { SELECT_DIRECTORY, TOGGLE_DIRECTORY } from '../../store/actions/actionTy
 
 class DirectoryIcon extends Component {
 
+    state = {
+      open: false
+    }
+
     toggleDirectory = () => {
       
       let filesCopy = { ...this.props.projectFiles };
@@ -19,7 +23,8 @@ class DirectoryIcon extends Component {
 
       // This will toggle the directory's isOpen property
       node.isOpen = !node.isOpen;
-
+      console.log(node.isOpen);
+      this.setState({open: node.isOpen});
       // These functions will update the Redux store with the directory's path and toggle its contents
       this.props.toggleDirectory(filesCopy);
       this.props.onSelectDirectory(this.props.path);
@@ -39,6 +44,8 @@ class DirectoryIcon extends Component {
 
         if(isEqual(this.props.selected, this.props.path)){
           highlight.backgroundColor = "#b6d6f9";
+        }
+        if(this.props.open){
           directory = <i class="fas fa-folder-open" style={directoryStyle}></i>
         }
 

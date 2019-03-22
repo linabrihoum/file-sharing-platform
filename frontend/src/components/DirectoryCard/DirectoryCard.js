@@ -8,9 +8,9 @@ import { SELECT_DIRECTORY, TOGGLE_DIRECTORY } from '../../store/actions/actionTy
 
 class DirectoryCard extends Component{
 
-    handleClick = ()=>{
+    openDirectory = ()=>{
         let currentPath;
-        if(this.props.path){
+        if(this.props.path !== null){
             currentPath = [...this.props.path, this.props.title];
         }else{
             currentPath = [this.props.title];
@@ -19,6 +19,7 @@ class DirectoryCard extends Component{
         let filesCopy = { ...this.props.projectFiles };
         let node = filesCopy.content[currentPath[0]];
         node.isOpen = true;
+       
         for(let i = 1; i < currentPath.length; i++){
             node = node.content[currentPath[i]];
             node.isOpen = true;
@@ -29,7 +30,7 @@ class DirectoryCard extends Component{
     }
     render(){
         return(
-            <div onClick={this.handleClick}>
+            <div onClick={this.openDirectory}>
                 <Card className={classes.DirectoryCard}>
                     <CardBody>
                         <span className={classes.DirectoryIcon}>

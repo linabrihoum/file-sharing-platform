@@ -34,7 +34,7 @@ class FileTree extends Component{
         path.push(key);
         if (node[key].isDir) {
           let currentPath = [...path];
-          docs.push(<Directory name={key} tab={tab} path={currentPath} selected={node[key].selected}/>);
+          docs.push(<Directory name={key} tab={tab} path={currentPath} open={node[key].isOpen} />);
           if(!node[key].isOpen){
             path.pop();
             continue;

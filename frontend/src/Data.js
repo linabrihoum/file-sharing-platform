@@ -4,6 +4,12 @@ let root = {
         content: {
           folder2: {
             content: {
+              folderI: {
+                content: {},
+                hash: "2",
+                isDir: true,
+                isOpen: false
+              },
               "filetF2.txt": {
                 content: null,
                 hash: "5",
@@ -12,25 +18,39 @@ let root = {
             },
             hash: "10",
             isDir: true,
-            isOpen: true
+            isOpen: false
           },
           folder3: {
-            content: {},
+            content: {
+              folderII: {
+                content: {},
+                hash: "2",
+                isDir: true,
+                isOpen: false
+              },
+            },
             hash: "2",
             isDir: true,
-            isOpen: true
+            isOpen: false
           },
           folder4: {
-            content: {},
+            content: {
+              folderIII: {
+                content: {},
+                hash: "2",
+                isDir: true,
+                isOpen: false
+              },
+            },
             hash: "21",
             isDir: true,
-            isOpen: true
+            isOpen: false
           },
           folder5: {
             content: {},
             hash: "23",
             isDir: true,
-            isOpen: true
+            isOpen: false
           }
         },
         hash: "3",
@@ -49,7 +69,7 @@ let root = {
             },
             hash: "10",
             isDir: true,
-            isOpen: true
+            isOpen: false
           },
           folder3: {
             content: {
@@ -61,7 +81,7 @@ let root = {
             },
             hash: "2",
             isDir: true,
-            isOpen: true
+            isOpen: false
           },
           folder4: {
             content: {
@@ -73,7 +93,7 @@ let root = {
             },
             hash: "21",
             isDir: true,
-            isOpen: true
+            isOpen: false
           },
           "File5.txt": {
             content: {},
