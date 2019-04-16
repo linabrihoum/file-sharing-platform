@@ -37,12 +37,12 @@ state = {
     this.resize = this.resizeWindow.bind(this);
     // Get the projects from the database
     window.addEventListener("resize", this.resize);
-        axios.get("https://react-my-burger-dfbcb.firebaseio.com/projects.json")
-            .then(response =>{
-                this.setState({projects: response.data});
-            }).catch(error =>{
-                console.log("error")
-            })
+    axios.get("https://react-my-burger-dfbcb.firebaseio.com/projects.json")
+        .then(response =>{
+            this.setState({projects: response.data});
+        }).catch(error =>{
+            console.log("error")
+        })
     }
     
   setCurrentProject = (project) =>{

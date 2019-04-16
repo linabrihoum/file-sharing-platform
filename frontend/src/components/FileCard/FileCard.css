@@ -1,6 +1,7 @@
 .cardImg{
-    width: 100%;
-    height: 70%;
+    width: 50%;
+    margin: 10px auto;
+    height: 50%;
     background-color: #eee;
 }
 
@@ -19,5 +20,10 @@
 }
 
 .cardText{
-    padding:5px;
+    /*padding:5px;*/
+}
+
+.icon{
+    font-size: 6em;
+    color: #6c757d;
 }

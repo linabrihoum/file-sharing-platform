@@ -46,11 +46,11 @@ class FileTree extends Component{
         }
         traverse(node[key].content);
       }
-
       path.pop();
       tab -= TAB;
     }
 
+    //Checks whether the projectFiles object is null
     if(this.props.projectFiles){
       traverse(files);
     }
