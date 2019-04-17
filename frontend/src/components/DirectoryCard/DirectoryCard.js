@@ -17,24 +17,33 @@ class DirectoryCard extends Component{
         }
         
         let filesCopy = { ...this.props.projectFiles };
+        // This will open all of the directories down to the selected directory's path
         let node = filesCopy.content[currentPath[0]];
         node.isOpen = true;
-       
         for(let i = 1; i < currentPath.length; i++){
             node = node.content[currentPath[i]];
             node.isOpen = true;
         }
-
+        //Update the Redux store with the new object that has all of the open directories
         this.props.toggleDirectory(filesCopy);
+        //Update the current path selected, so that it can be highlighted
         this.props.onSelectDirectory(currentPath);
+        this.test();
+        
     }
+    
+    // This will be converted into a socket.io function that sends the directory that is selected
+    test = () => {
+        console.log(this.props.id);
+    }
+    
     render(){
         return(
             <div onClick={this.openDirectory}>
                 <Card className={classes.DirectoryCard}>
                     <CardBody>
                         <span className={classes.DirectoryIcon}>
-                            <i class="fas fa-folder" />
+                            <i className="fas fa-folder" />
                         </span>
                         <CardText>{this.props.title}</CardText>
                     </CardBody>

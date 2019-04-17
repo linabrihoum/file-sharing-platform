@@ -23,10 +23,16 @@ class DirectoryIcon extends Component {
 
       // This will toggle the directory's isOpen property
       node.isOpen = !node.isOpen;
+      this.test(node.hash);
       this.setState({open: node.isOpen});
       // These functions will update the Redux store with the directory's path and toggle its contents
       this.props.toggleDirectory(filesCopy);
       this.props.onSelectDirectory(this.props.path);
+    }
+    
+    // This will be converted into a socket.io function that sends the directory that is selected
+    test = (hash) => {
+      console.log(hash);
     }
 
       render() {

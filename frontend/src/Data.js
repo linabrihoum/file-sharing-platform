@@ -142,7 +142,7 @@ let root = {
       },
       "file40.txt": {
         content: null,
-        hash: "4",
+        hash: "52",
         isDir: false
       }
     }
