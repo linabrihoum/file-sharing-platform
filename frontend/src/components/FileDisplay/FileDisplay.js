@@ -31,6 +31,14 @@ class FileDisplay extends Component{
       this.setState({filesSelected: []})
     }
   }
+  
+  // This method will send the IDs of the files requested for download to the server
+  requestFiles = () => {
+    if(this.state.filesSelected.length === 0){
+      return;
+    }
+    console.log(this.state.filesSelected);
+  }
 
   render(){
 
@@ -66,7 +74,7 @@ class FileDisplay extends Component{
         <Row>
             <Col className ={classes.fileCardContainer} style = {{"height" : this.props.height}}>
               {cards}
-              <Button size="lg" className={classes.Button}>Download</Button>
+              <Button size="lg" className={classes.Button} onClick={this.requestFiles}>Download</Button>
             </Col>
         </Row>
         );

@@ -51,7 +51,7 @@ class DirectoryIcon extends Component {
           highlight.backgroundColor = "#b6d6f9";
         }
         if(this.props.open){
-          directory = <i class="fas fa-folder-open" style={directoryStyle}></i>
+          directory = <i className="fas fa-folder-open" style={directoryStyle}></i>
         }
 
         return (
