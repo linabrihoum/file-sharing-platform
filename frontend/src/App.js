@@ -11,7 +11,8 @@ import DirectoryIcon from './components/DirectoryIcon/DirectoryIcon';
 
 class App extends Component {
     state ={
-      viewSettings : false
+      // viewSettings : false
+      authenticated: false
     }
     
     openSettingsHandler = () =>{
@@ -20,10 +21,9 @@ class App extends Component {
     
     render(){
       return(
-        <div>
-          {this.state.viewSettings ? 
-          <AccountSettings openSettings={this.openSettingsHandler.bind(this)} /> : <MainDashboard openSettings={this.openSettingsHandler.bind(this)} />}
-        </div>
+        <React.Fragment>
+        {this.state.authenticated ? <MainDashboard /> : <LoginForm app={this}/>}
+      </React.Fragment>
       );
     }
 }
