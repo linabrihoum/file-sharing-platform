@@ -5,7 +5,7 @@ import React, { Component } from 'react';
 import classes from'./App.css';
 import MainDashboard from './screens/MainDashboard/MainDashboard';
 import AccountSettings from './screens/AccountSettings/AccountSettings';
-import DirectoryIcon from './components/DirectoryIcon/DirectoryIcon';
+import LoginForm from './screens/LoginForm/LoginForm';
 
 //Diego Branch
 
