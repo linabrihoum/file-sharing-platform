@@ -77,9 +77,10 @@ state = {
     let modal = null;
     
     if(this.state.uploading){
-      modal = <Modal show={this.state.uploading} modalClosed={this.cancelUploadHandler}>
-        <UploadFiles />
-      </Modal>;
+      modal =( 
+        <Modal show={this.state.uploading} modalClosed={this.cancelUploadHandler}>
+          <UploadFiles />
+        </Modal>);
     }
     
     const mainContainerStyle = {
