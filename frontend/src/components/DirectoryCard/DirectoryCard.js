@@ -18,10 +18,10 @@ class DirectoryCard extends Component{
         
         let filesCopy = { ...this.props.projectFiles };
         // This will open all of the directories down to the selected directory's path
-        let node = filesCopy.content[currentPath[0]];
+        let node = filesCopy.contents[currentPath[0]];
         node.isOpen = true;
         for(let i = 1; i < currentPath.length; i++){
-            node = node.content[currentPath[i]];
+            node = node.contents[currentPath[i]];
             node.isOpen = true;
         }
         //Update the Redux store with the new object that has all of the open directories

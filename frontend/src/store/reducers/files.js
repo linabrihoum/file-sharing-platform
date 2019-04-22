@@ -1,11 +1,11 @@
 import React from 'react';
 
-import { SELECT_DIRECTORY, TOGGLE_DIRECTORY, OPEN_ROOT } from '../actions/actionTypes'
-import ProjectData from '../../Data';
+import { SELECT_DIRECTORY, TOGGLE_DIRECTORY, OPEN_ROOT,UPDATE_PROJECT_FILES } from '../actions/actionTypes'
+// import ProjectData from '../../Data';
 
 // Current project data is being imported from another file, but eventually it will be loaded from server
 const initialState = {
-    files : ProjectData,
+    files : null,
     selected: null
 }
 
@@ -25,6 +25,11 @@ const reducer = (state = initialState, action) => {
             return{
                 ...state,
                 selected : null
+            }
+        case UPDATE_PROJECT_FILES:
+            return{
+                ...state,
+                files: action.files
             }
 
     }

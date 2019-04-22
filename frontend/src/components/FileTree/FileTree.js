@@ -21,8 +21,6 @@ class FileTree extends Component{
     let docs = [];
     let tab = 0;
     let path = [];
-
-    let files = { ...this.props.projectFiles.content};
     
     // This function will go through the object stored in the Redux store and determine which directory will be displayed and selected
     // Each directory will be passed down a path to its corresponding properties
@@ -44,7 +42,7 @@ class FileTree extends Component{
           path.pop();
           continue;
         }
-        traverse(node[key].content);
+        traverse(node[key].contents);
       }
       path.pop();
       tab -= TAB;
@@ -52,6 +50,7 @@ class FileTree extends Component{
 
     //Checks whether the projectFiles object is null
     if(this.props.projectFiles){
+      let files = { ...this.props.projectFiles.contents};
       traverse(files);
     }
 

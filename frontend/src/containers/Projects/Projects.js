@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
 import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
-import ProjectDropdownItem from './ProjectDropDownItem/ProjectDropDownItem'
+import { connect } from 'react-redux';
 
-export default class ProjectDropdown extends Component {
+import ProjectDropdownItem from './ProjectDropDownItem/ProjectDropDownItem'
+import { UPDATE_PROJECT_FILES } from '../../store/actions/actionTypes';
+
+class ProjectDropdown extends Component {
   constructor(props) {
     super(props);
 
@@ -40,15 +43,15 @@ export default class ProjectDropdown extends Component {
   setCurrentProject(key) {
     /* GET THE PROJECT TREE*/
     // Let server know what project is selected.
+    let projectTree = null;
     window.socket.emit('request_project',
       window.crypter.encrypt({ ID: this.state.availableProjects[key].ID }),
       (encryptedProjectData) => {
 
         // Get the project tree.
-        var projectTree = window.crypter.decrypt(encryptedProjectData);
-
+        projectTree = window.crypter.decrypt(encryptedProjectData);
         console.log(projectTree);
-
+        this.storeProjectFiles(projectTree);
         //projectTree.contents['data.csv'].hash
       });
       /* -------------------------- */
@@ -70,6 +73,27 @@ export default class ProjectDropdown extends Component {
     // Update project selection state.
     this.setState({ projectName: this.state.availableProjects[key].Name, currentProject: key });
     console.log('You have selected project ' + this.state.availableProjects[key].ID);
+  }
+
+  storeProjectFiles = (projectTree) =>{
+
+    let treeCopy = {...projectTree};
+    
+    function traverse(node) {
+      for (const key of Object.keys(node)) {
+        if (node[key].isDir) {
+          node[key].isOpen = false;
+        }
+        if (!node[key].isDir) {
+          continue;
+        }
+        traverse(node[key].content);
+      }
+    }
+
+    traverse(treeCopy);
+    this.props.updateProjecFiles(treeCopy);
+
   }
 
   isProjectSelected() {
@@ -101,3 +125,11 @@ export default class ProjectDropdown extends Component {
     );
   }
 }
+
+const mapDispatchToProps = dispatch => {
+  return{
+    updateProjecFiles: (files) => dispatch({type: UPDATE_PROJECT_FILES, files: files })
+  }
+}
+
+export default connect(null, mapDispatchToProps)(ProjectDropdown);

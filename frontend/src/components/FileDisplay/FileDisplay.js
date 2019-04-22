@@ -46,30 +46,31 @@ class FileDisplay extends Component{
     let path = this.props.path;
     let node = null;
     let cards = [];
-
-    if(path !== null){ 
-      node = filesCopy.content[path[0]];
-      for(let i = 1; i < path.length; i++){
-        node = node.content[path[i]];
-      }
-      for(const key of Object.keys(node.content)){
-        if(node.content[key].isDir){
-          cards.push(<DirectoryCard title={key} id={node.content[key].hash}/>);
-        }else{
-          cards.push(<FileCard stageFile={this.addFiles.bind(this)} id={node.content[key].hash}>{key}</FileCard>);
+    if(this.props.projectFiles !== null){
+      if(path !== null){ 
+        node = filesCopy.contents[path[0]];
+        for(let i = 1; i < path.length; i++){
+          node = node.contents[path[i]];
         }
-      }
-    }else{ // To display the contents of the root directory
-      let projectFiles = this.props.projectFiles.content;
-      for(const key of Object.keys(projectFiles)){
-        if(projectFiles[key].isDir){
-          cards.push(<DirectoryCard title={key} id={projectFiles[key].hash}/>);
-        }else{
-          cards.push(<FileCard stageFile={this.addFiles.bind(this)} id={projectFiles[key].hash}>{key}</FileCard>);
+        for(const key of Object.keys(node.contents)){
+          if(node.contents[key].isDir){
+            cards.push(<DirectoryCard title={key} id={node.contents[key].hash}/>);
+          }else{
+            cards.push(<FileCard stageFile={this.addFiles.bind(this)} id={node.contents[key].hash}>{key}</FileCard>);
+          }
+        }
+      }else{ // To display the contents of the root directory
+        let projectFiles = this.props.projectFiles.contents;
+        for(const key of Object.keys(projectFiles)){
+          if(projectFiles[key].isDir){
+            cards.push(<DirectoryCard title={key} id={projectFiles[key].hash}/>);
+          }else{
+            cards.push(<FileCard stageFile={this.addFiles.bind(this)} id={projectFiles[key].hash}>{key}</FileCard>);
+          }
         }
       }
     }
-
+   
     return(
         <Row>
             <Col className ={classes.fileCardContainer} style = {{"height" : this.props.height}}>

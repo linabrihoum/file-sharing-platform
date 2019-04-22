@@ -15,10 +15,10 @@ class DirectoryIcon extends Component {
       
       let filesCopy = { ...this.props.projectFiles };
       let path = this.props.path;
-      let node = filesCopy.content[path[0]];
+      let node = filesCopy.contents[path[0]];
       
       for(let i = 1; i < path.length; i++){
-        node = node.content[path[i]];
+        node = node.contents[path[i]];
       }
 
       // This will toggle the directory's isOpen property
