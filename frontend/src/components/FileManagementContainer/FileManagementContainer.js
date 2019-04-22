@@ -13,7 +13,7 @@ class FileManagementContainer extends Component {
         
         return(
             <React.Fragment>
-                <InnerNav uploading={this.uploading} />
+                <InnerNav uploading={this.props.uploading} />
                 <FileDisplay height={this.props.height} />
             </React.Fragment>
         );

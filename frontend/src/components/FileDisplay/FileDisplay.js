@@ -75,7 +75,6 @@ class FileDisplay extends Component{
         <Row>
             <Col className ={classes.fileCardContainer} style = {{"height" : this.props.height}}>
               {cards}
-              <Button size="lg" className={classes.Button} onClick={this.requestFiles}>Download</Button>
             </Col>
         </Row>
         );
