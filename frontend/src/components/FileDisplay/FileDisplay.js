@@ -13,17 +13,16 @@ class FileDisplay extends Component{
     filesSelected: []
   }
   
-  addFiles = (id, selected) => {
+  selectFileHandler = (id, selected) => {
+    let currentStagedFiles = [...this.props.currentStagedFiles];
     if(selected){
-        this.setState(prevState =>({
-        filesSelected: [...prevState.filesSelected, id]
-      }));
+       currentStagedFiles = [...currentStagedFiles, id];
     }else{
-      let files = this.state.filesSelected.filter((fileId) => {
+      currentStagedFiles = this.props.currentStagedFiles.filter((fileId) => {
         return fileId !== id;
       });
-      this.setState({filesSelected: files})
     }
+    this.props.stageFiles(currentStagedFiles);
   }
   
   componentDidUpdate(prevProps, prevState){
@@ -56,7 +55,7 @@ class FileDisplay extends Component{
           if(node.contents[key].isDir){
             cards.push(<DirectoryCard title={key} id={node.contents[key].hash}/>);
           }else{
-            cards.push(<FileCard stageFile={this.addFiles.bind(this)} id={node.contents[key].hash}>{key}</FileCard>);
+            cards.push(<FileCard stageFile={this.selectFileHandler.bind(this)} id={node.contents[key].hash}>{key}</FileCard>);
           }
         }
       }else{ // To display the contents of the root directory
@@ -65,7 +64,7 @@ class FileDisplay extends Component{
           if(projectFiles[key].isDir){
             cards.push(<DirectoryCard title={key} id={projectFiles[key].hash}/>);
           }else{
-            cards.push(<FileCard stageFile={this.addFiles.bind(this)} id={projectFiles[key].hash}>{key}</FileCard>);
+            cards.push(<FileCard stageFile={this.selectFileHandler.bind(this)} id={projectFiles[key].hash}>{key}</FileCard>);
           }
         }
       }
