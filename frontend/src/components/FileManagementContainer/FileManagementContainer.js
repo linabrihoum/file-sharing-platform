@@ -15,7 +15,7 @@ class FileManagementContainer extends Component {
     }
 
     downloadFiles = () => {
-        let stagedFiles = this.state.filesSelected;
+        let stagedFiles = [... this.state.filesSelected];
         if (stagedFiles.length > 0) {
 
             window.socket.emit('request_download',
@@ -26,18 +26,23 @@ class FileManagementContainer extends Component {
                     var downloadToken = window.crypter.decrypt(encryptedDownloadToken);
 
                     window.location = `https://zach.black:3001/download/?token=${downloadToken}`;
-
-                    /*axios.get(`https://zach.black:3001/download/?token=${downloadToken}`)
-                        .then((response) =>{
-                            console.log("Downloaded File!");
-                        })
-                        .catch((err) =>{
-                            console.log("Could not download file");
-                            console.log(err);
-                        });
-                    */
-                    // DOWNLOAD URL: https://zach.black:3001/download/?token=<TOKEN HERE>
                 });
+        }
+
+        this.setState({filesSelected: []});
+    }
+
+    deleteFiles = () => {
+        let stagedFiles = [... this.state.filesSelected];
+        if(stagedFiles.length > 0){
+            stagedFiles.forEach((fileHash)=> {
+                window.socket.emit('request_delete',
+                window.crypter.encrypt({ Hash: fileHash }),
+                (success) => {
+                    console.log("File delete: " + success);
+                }
+                );
+            })
         }
     }
 
@@ -47,7 +52,8 @@ class FileManagementContainer extends Component {
             <React.Fragment>
                 <InnerNav
                     uploading={this.props.uploading}
-                    download={this.downloadFiles.bind(this)} />
+                    download={this.downloadFiles.bind(this)}
+                    delete={this.deleteFiles} />
                 <FileDisplay
                     height={this.props.height}
                     currentStagedFiles={this.state.filesSelected}

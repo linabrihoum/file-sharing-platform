@@ -15,7 +15,10 @@ const innerNav = (props) => {
               <Button 
                 className={classes.downloadButton}
                 onClick={props.download}>Download</Button>
-              <Button color="danger" className={classes.deleteButton}>Delete</Button>
+              <Button 
+                color="danger" 
+                className={classes.deleteButton}
+                onClick={props.delete}>Delete</Button>
               <Input placeholder="Search" className={classes.searchBar}/>
             </Col>
           </Row>
