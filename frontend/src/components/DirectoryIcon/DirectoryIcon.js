@@ -13,12 +13,18 @@ class DirectoryIcon extends Component {
 
     toggleDirectory = () => {
       
+      // Copy of the Project Tree stored in the Redux store
       let filesCopy = { ...this.props.projectFiles };
+
+      // The path will point to the directory currently selected
       let path = this.props.path;
-      let node = filesCopy.contents[path[0]];
+
+      // Get the first directory in the path
+      let node = filesCopy.content[path[0]];
       
+      // Iterate through the Project Tree object until reaching the Directory selected
       for(let i = 1; i < path.length; i++){
-        node = node.contents[path[i]];
+        node = node.content[path[i]];
       }
 
       // This will toggle the directory's isOpen property

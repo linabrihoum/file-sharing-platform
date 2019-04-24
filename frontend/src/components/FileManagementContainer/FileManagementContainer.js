@@ -11,45 +11,47 @@ class FileManagementContainer extends Component {
     }
 
     stageFiles = (files) => {
-        this.setState({filesSelected: files});
+        this.setState({ filesSelected: files });
     }
 
     downloadFiles = () => {
         let stagedFiles = this.state.filesSelected;
-        if(stagedFiles.length > 0){
-            stagedFiles.forEach(fileHash =>{
-                window.socket.emit('request_download',
-                    window.crypter.encrypt({ Hash: fileHash}),
-                    (encryptedDownloadToken) => {
-        
-                        // Get the project tree.
-                        var downloadToken = window.crypter.decrypt(encryptedDownloadToken);
-                        console.log(downloadToken);
-                        // axios.get(`https://zach.black:3001/download/?token=${downloadToken}`)
-                        //     .then((response) =>{
-                        //         console.log("Downloaded File!");
-                        //     })
-                        //     .catch((err) =>{
-                        //         console.log("Could not download file");
-                        //         console.log(err);
-                        //     });
-                        // DOWNLOAD URL: https://zach.black:3001/download/?token=<TOKEN HERE>
-                    });
-            })
+        if (stagedFiles.length > 0) {
+
+            window.socket.emit('request_download',
+                window.crypter.encrypt({ Hashes: stagedFiles }),
+                (encryptedDownloadToken) => {
+
+                    // Get the project tree.
+                    var downloadToken = window.crypter.decrypt(encryptedDownloadToken);
+
+                    window.location = `https://zach.black:3001/download/?token=${downloadToken}`;
+
+                    /*axios.get(`https://zach.black:3001/download/?token=${downloadToken}`)
+                        .then((response) =>{
+                            console.log("Downloaded File!");
+                        })
+                        .catch((err) =>{
+                            console.log("Could not download file");
+                            console.log(err);
+                        });
+                    */
+                    // DOWNLOAD URL: https://zach.black:3001/download/?token=<TOKEN HERE>
+                });
         }
     }
 
-    render(){
-        
-        return(
+    render() {
+
+        return (
             <React.Fragment>
-                <InnerNav 
+                <InnerNav
                     uploading={this.props.uploading}
-                    download={this.downloadFiles.bind(this)}/>
-                <FileDisplay 
-                    height={this.props.height} 
-                    currentStagedFiles={this.state.filesSelected} 
-                    stageFiles={this.stageFiles.bind(this)}/>
+                    download={this.downloadFiles.bind(this)} />
+                <FileDisplay
+                    height={this.props.height}
+                    currentStagedFiles={this.state.filesSelected}
+                    stageFiles={this.stageFiles} />
             </React.Fragment>
         );
     }

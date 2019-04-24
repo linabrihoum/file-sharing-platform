@@ -20,6 +20,9 @@ class FileTree extends Component{
     
     let docs = [];
     let tab = 0;
+    /* Path will be an array of Strings. It will contain the name of the parent directories that lead to the child directory.
+        It will be used on various methods through out the app to reference said directory in the Redux Project Tree object that
+        is being sent from the server*/
     let path = [];
     
     // This function will go through the object stored in the Redux store and determine which directory will be displayed and selected
@@ -42,7 +45,7 @@ class FileTree extends Component{
           path.pop();
           continue;
         }
-        traverse(node[key].contents);
+        traverse(node[key].content);
       }
       path.pop();
       tab -= TAB;
@@ -50,7 +53,7 @@ class FileTree extends Component{
 
     //Checks whether the projectFiles object is null
     if(this.props.projectFiles){
-      let files = { ...this.props.projectFiles.contents};
+      let files = { ...this.props.projectFiles.content};
       traverse(files);
     }
 
