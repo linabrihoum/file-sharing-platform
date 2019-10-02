@@ -1,5 +1,4 @@
 # File Sharing Platform
-Senior Design project about file sharing for a construction company.
 
 ## Backstory
 This project was for a Senior Design project for my Computer Science degree. We were assigned to a local construction company to help with their inefficnet way of sharing large files. 
