@@ -2,7 +2,9 @@
 
 ## Backstory
 This project was for a Senior Design project for my Computer Science degree. We were assigned to a local construction company to help with their inefficnet way of sharing large files. 
+
 We planned this project for 3 months and executed and developed it for another 3 months.
+
 Lina Brihoum was the Project Manager, Diego De La Torre was the Lead Frontend Developer, Zachary Luebke was the Lead Backend Developer and Chaseon Taranto was a Front and Backend Developer.
 
 ## Introduction
